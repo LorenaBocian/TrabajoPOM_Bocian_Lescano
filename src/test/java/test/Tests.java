@@ -3,8 +3,10 @@ package test;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import pages.Eminent;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.SucursalesyCajeros;
 import utilidades.DataDriven;
 import utilidades.PropertiesDriven;
 
@@ -22,6 +24,8 @@ public class Tests {
     //Atributos (pages)
     private HomePage homePage;
     private LoginPage loginPage;
+    private SucursalesyCajeros sucursalesyCajeros;
+    private Eminent eminent;
 
 
 
@@ -42,6 +46,10 @@ public class Tests {
         homePage.conexionDriver(properties.obtenerProperty("rutaDriver"), properties.obtenerProperty("browserProperty"), properties.obtenerProperty("browser"));
 
         loginPage = new LoginPage(homePage.getDriver());
+
+        sucursalesyCajeros = new SucursalesyCajeros(homePage.getDriver());
+
+        eminent = new Eminent(sucursalesyCajeros.getDriver());
 
     }
 
@@ -66,6 +74,16 @@ public class Tests {
         datos = data.obtenerDatosDePrueba("CP002_Busqueda");
         homePage.buscarError(datos.get(1));
         Assert.assertEquals(homePage.mensajeError(),datos.get(2));
+
+    }
+
+    @Test
+    public void CP003_EspaciEminent() throws IOException {
+        datos = data.obtenerDatosDePrueba("CP003_Eminent");
+        homePage.irASucursales();
+        sucursalesyCajeros.buscarEspaciosEminent();
+        eminent.buscarEspacioCercano();
+        Assert.assertEquals(eminent.obtenerPoUp(),datos.get(1));
 
     }
 

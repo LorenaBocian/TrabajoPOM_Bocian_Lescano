@@ -14,6 +14,7 @@ public class HomePage extends ClaseBase {
     By locatorBtnOnlineBanking = By.partialLinkText("Online Banking");
     By locatorBuscador = By.xpath("//input[@id='buscadorHeader']");
     By locatorError = By.xpath("//body/main[1]/div[2]/div[3]/div[1]/div[4]/div[1]/div[1]/div[1]/section[1]/div[2]/div[2]/div[1]/div[1]");
+    By locatorSucursales = By.xpath("//a[@id='sucursales-y-cajeros']");
 
     //Acciones del page
     public void irAIniciarSesion(){
@@ -27,6 +28,10 @@ public class HomePage extends ClaseBase {
     }
     public String mensajeError(){
         return obtenerTexto(esperarPorPresenciaElemento(locatorError));
+    }
+
+    public void irASucursales(){
+        click(esperarPorElementoAClickear(locatorSucursales));
     }
 
 }
