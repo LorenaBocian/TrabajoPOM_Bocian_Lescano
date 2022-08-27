@@ -31,7 +31,7 @@ public class LoginPage extends ClaseBase {
     }
 
     public String obtenerMensajeError(){
-        return obtenerTexto(esperarPorPresenciaElemento(locatorLblError));
+        return obtenerTexto((locatorLblError));
     }
 
 

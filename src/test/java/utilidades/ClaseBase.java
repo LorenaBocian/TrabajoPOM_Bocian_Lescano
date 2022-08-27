@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.Set;
 
 public class ClaseBase {
     //Atributos
@@ -31,77 +32,81 @@ public class ClaseBase {
         this.driver = driver;
     }
 
-    public WebElement BuscarElementoWeb(By localizador){
+    public WebElement BuscarElementoWeb(By localizador) {
         return driver.findElement(localizador);
     }
 
-    public List<WebElement> buscarElementosWeb(By localizador){
+    public List<WebElement> buscarElementosWeb(By localizador) {
         return driver.findElements(localizador);
     }
 
     // Click
 
-    public void click(By localizador){
+    public void click(By localizador) {
         this.driver.findElement(localizador).click();
     }
 
-    public void click(WebElement elemento){
+    public void click(WebElement elemento) {
         elemento.click();
     }
 
-    public void enter(By localizador){ this.driver.findElement(localizador).sendKeys(Keys.ENTER);}
+    public void enter(By localizador) {
+        this.driver.findElement(localizador).sendKeys(Keys.ENTER);
+    }
 
-    public void enter(WebElement elemento){elemento.sendKeys();}
+    public void enter(WebElement elemento) {
+        elemento.sendKeys();
+    }
 
-    public void agregarTexto(WebElement elemento, String texto){
+    public void agregarTexto(WebElement elemento, String texto) {
         elemento.sendKeys(texto);
     }
 
-    public void agregarTexto(By localizador, String texto){
+    public void agregarTexto(By localizador, String texto) {
         this.driver.findElement(localizador).sendKeys(texto);
     }
 
-    public void agregarCombinacionTeclas(By localizador, Keys key){
+    public void agregarCombinacionTeclas(By localizador, Keys key) {
         this.driver.findElement(localizador).sendKeys(key);
     }
 
-    public String obtenerTexto(By localizador){
+    public String obtenerTexto(By localizador) {
         return this.driver.findElement(localizador).getText();
     }
 
-    public String obtenerTexto(WebElement elemento){
+    public String obtenerTexto(WebElement elemento) {
         return elemento.getTagName();
     }
 
     //Obtener una url
-    public void cargarPagina(String url){
+    public void cargarPagina(String url) {
         this.driver.get(url);
     }
 
     //Espera fija
-    public void esperaXsegundos(int milisegundos){
-        try{
+    public void esperaXsegundos(int milisegundos) {
+        try {
             Thread.sleep(milisegundos);
-        } catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     //Espera explicita
-    public WebElement esperarPorPresenciaElemento(By localizador){
+    public WebElement esperarPorPresenciaElemento(By localizador) {
         wait = new WebDriverWait(this.driver, 20);
         return wait.until(ExpectedConditions.presenceOfElementLocated(localizador));
     }
 
     //Espera explicita
-    public WebElement esperarPorElementoAClickear(By localizador){
+    public WebElement esperarPorElementoAClickear(By localizador) {
         wait = new WebDriverWait(this.driver, 20);
         return wait.until(ExpectedConditions.elementToBeClickable(localizador));
     }
 
-    public WebDriver conexionDriver(String ruta, String property, String browser){
+    public WebDriver conexionDriver(String ruta, String property, String browser) {
 
-        switch (browser){
+        switch (browser) {
             case "chrome":
                 System.setProperty(property, ruta);
                 this.driver = new ChromeDriver();
@@ -119,29 +124,44 @@ public class ClaseBase {
         }
     }
 
-    public void maximizarVentana(){
+    public void maximizarVentana() {
         this.driver.manage().window().maximize();
     }
 
-    public void cerrarBrowser(){
+    public void cerrarBrowser() {
         this.driver.close();
     }
 
-    public int contarIframes(By localizador){ //TagName "Iframe"
+    public void cerrarTodo(){
+        this.driver.quit();
+    }
+
+    public int contarIframes(By localizador) { //TagName "Iframe"
         List<WebElement> frames = this.driver.findElements(localizador);
         return frames.size();
     }
 
-    public void irAFrameByIndex(int index){
+    public void irAFrameByIndex(int index) {
         this.driver.switchTo().frame(index);
     }
 
-    public void irAFrameByIDorName(String NameOrID){
+    public void irAFrameByIDorName(String NameOrID) {
         this.driver.switchTo().frame(NameOrID);
     }
 
+    public void cambiarDePestaña() {
+        String mainTab = driver.getWindowHandle();
+        String newTab;
 
+        Set<String> handles = driver.getWindowHandles();
 
+        for (String actual : handles) {
+            if (!actual.equalsIgnoreCase(mainTab)) {
+                driver.switchTo().window(actual);
+                newTab = actual;
+            }
+        }
+    }
 
 
 }

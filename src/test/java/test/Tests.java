@@ -3,10 +3,7 @@ package test;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import pages.Eminent;
-import pages.HomePage;
-import pages.LoginPage;
-import pages.SucursalesyCajeros;
+import pages.*;
 import utilidades.DataDriven;
 import utilidades.PropertiesDriven;
 
@@ -26,6 +23,7 @@ public class Tests {
     private LoginPage loginPage;
     private SucursalesyCajeros sucursalesyCajeros;
     private Eminent eminent;
+    private BuscadorSucursales buscadorSucursales;
 
 
 
@@ -50,6 +48,8 @@ public class Tests {
         sucursalesyCajeros = new SucursalesyCajeros(homePage.getDriver());
 
         eminent = new Eminent(sucursalesyCajeros.getDriver());
+
+        buscadorSucursales = new BuscadorSucursales(sucursalesyCajeros.getDriver());
 
     }
 
@@ -87,9 +87,18 @@ public class Tests {
 
     }
 
+    @Test
+    public void CP004_SucursalesOk() throws IOException, InterruptedException {
+        datos = data.obtenerDatosDePrueba("CP004_Sucursal006");
+        homePage.irASucursales();
+        sucursalesyCajeros.buscarSucGalicia();
+        buscadorSucursales.buscarSucursal(datos.get(1), datos.get(2), datos.get(3));
+        Assert.assertEquals(buscadorSucursales.obtenerMensaje(),datos.get(4));
+    }
+
     @AfterMethod
 
     public void after(){
-        homePage.cerrarBrowser();
+        homePage.cerrarTodo();
     }
 }

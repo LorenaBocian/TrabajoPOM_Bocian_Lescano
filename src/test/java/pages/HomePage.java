@@ -27,7 +27,7 @@ public class HomePage extends ClaseBase {
         enter(locatorBuscador);
     }
     public String mensajeError(){
-        return obtenerTexto(esperarPorPresenciaElemento(locatorError));
+        return obtenerTexto(locatorError);
     }
 
     public void irASucursales(){
