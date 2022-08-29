@@ -94,13 +94,13 @@ public class ClaseBase {
 
     //Espera explicita
     public WebElement esperarPorPresenciaElemento(By localizador) {
-        wait = new WebDriverWait(this.driver, 20);
+        wait = new WebDriverWait(this.driver, 2);
         return wait.until(ExpectedConditions.presenceOfElementLocated(localizador));
     }
 
     //Espera explicita
     public WebElement esperarPorElementoAClickear(By localizador) {
-        wait = new WebDriverWait(this.driver, 20);
+        wait = new WebDriverWait(this.driver, 2);
         return wait.until(ExpectedConditions.elementToBeClickable(localizador));
     }
 
@@ -132,7 +132,7 @@ public class ClaseBase {
         this.driver.close();
     }
 
-    public void cerrarTodo(){
+    public void cerrarTodo() throws Exception{
         this.driver.quit();
     }
 
