@@ -74,7 +74,6 @@ public class Tests {
         homePage.irAIniciarSesion();
         loginPage.registrarse(datos.get(1), datos.get(2), datos.get(3));
         Assert.assertEquals(loginPage.obtenerMensajeError(),datos.get(4));
-        homePage.cerrarBrowser();
     }
 
 
@@ -83,7 +82,6 @@ public class Tests {
         datos = data.obtenerDatosDePrueba("CP002_Busqueda");
         homePage.buscarError(datos.get(1));
         Assert.assertEquals(homePage.mensajeError(),datos.get(2));
-        homePage.cerrarBrowser();
 
     }
 
@@ -94,7 +92,6 @@ public class Tests {
         sucursalesyCajeros.buscarEspaciosEminent();
         eminent.buscarEspacioCercano();
         Assert.assertEquals(eminent.obtenerPoUp(),datos.get(1));
-        homePage.cerrarTodo();
 
     }
 
@@ -105,7 +102,6 @@ public class Tests {
         sucursalesyCajeros.buscarSucGalicia();
         buscadorSucursales.buscarSucursal(datos.get(1), datos.get(2), datos.get(3));
         Assert.assertEquals(buscadorSucursales.obtenerMensaje(),datos.get(4));
-        homePage.cerrarTodo();
     }
 
     @Test
@@ -114,7 +110,6 @@ public class Tests {
         homePage.irASucursales();
         sucursalesyCajeros.buscarSucEmpresa();
         Assert.assertEquals(sucEmpresa.obtenerMensaje(),datos.get(1));
-        homePage.cerrarTodo();
 
     }
 
@@ -125,7 +120,6 @@ public class Tests {
         sucursalesyCajeros.buscarCajero();
         cajerosAutomaticos.buscarCajero(datos.get(1));
         Assert.assertEquals(cajerosAutomaticos.obtenerMensaje(),datos.get(2));
-        homePage.cerrarTodo();
 
     }
 
@@ -133,9 +127,8 @@ public class Tests {
     public void CP007_Promociones() throws IOException {
         datos = data.obtenerDatosDePrueba("CP007_Promociones");
         homePage.irAPromociones();
-        promociones.irAPromocion1();
-        Assert.assertEquals(promociones.obtenerMensaje(),datos.get(1));
-        homePage.cerrarBrowser();
+        promociones.irAPromocionBusqueda(datos.get(1));
+        Assert.assertEquals(promociones.obtenerMensaje(),datos.get(2));
     }
 
     @Test
@@ -144,9 +137,13 @@ public class Tests {
         homePage.irAPromociones();
         promociones.irAPromocion2();
         Assert.assertEquals(promociones.obtenerMensaje2(),datos.get(1));
-        homePage.cerrarBrowser();
-
     }
+
+    @AfterSuite
+    public void cerrarTest() throws Exception {
+        homePage.cerrarTodo();
+    }
+
 
 
 }
