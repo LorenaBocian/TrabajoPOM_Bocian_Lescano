@@ -10,11 +10,10 @@ public class CajerosAutomaticos extends ClaseBase {
 
     public CajerosAutomaticos(WebDriver driver) {super(driver);}
 
-    By locatorLocalidad = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[3]/div[1]/div[4]/div[1]/div[1]/div[1]/section[1]/div[2]/div[2]/form[1]/div[1]/table[1]/tbody[1]/tr[2]/td[2]/input[1]");
+    By locatorLocalidad = By.xpath("//tbody/tr[2]/td[2]/input[1]");
 
-    By locatorBtnBuscar = By.xpath("//tbody/tr[1]/td[2]/a[1]/img[1]");
-
-    By locatorMensaje = By.xpath("//div[contains(text(),'S1AGL065')]");
+    By locatorBtnBuscar = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[3]/div[1]/div[4]/div[1]/div[1]/div[1]/section[1]/div[2]/div[2]/form[1]/div[1]/div[1]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[1]/td[2]/a[1]/img[1]");
+    By locatorMensaje = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[3]/div[1]/div[4]/div[1]/div[1]/div[1]/section[1]/div[2]/form[1]/div[1]/table[2]/tbody[1]/tr[1]/td[6]/div[1]");
 
     public void buscarCajero(String localidad) {
         cambiarDePestaña();
@@ -22,7 +21,6 @@ public class CajerosAutomaticos extends ClaseBase {
         click(esperarPorElementoAClickear(locatorLocalidad));
         elegirCajero(localidad);
         click(esperarPorElementoAClickear(locatorBtnBuscar));
-
     }
 
     private void elegirCajero(String localidad){
@@ -33,8 +31,6 @@ public class CajerosAutomaticos extends ClaseBase {
 
     }
 
-    public String obtenerMensaje(){
-        return obtenerTexto(locatorMensaje);
-    }
+    public String obtenerMensaje(){return obtenerTexto(locatorMensaje);}
 
 }

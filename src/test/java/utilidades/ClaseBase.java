@@ -94,13 +94,13 @@ public class ClaseBase {
 
     //Espera explicita
     public WebElement esperarPorPresenciaElemento(By localizador) {
-        wait = new WebDriverWait(this.driver, 10);
+        wait = new WebDriverWait(this.driver, 20);
         return wait.until(ExpectedConditions.presenceOfElementLocated(localizador));
     }
 
     //Espera explicita
     public WebElement esperarPorElementoAClickear(By localizador) {
-        wait = new WebDriverWait(this.driver, 10);
+        wait = new WebDriverWait(this.driver, 20);
         return wait.until(ExpectedConditions.elementToBeClickable(localizador));
     }
 
